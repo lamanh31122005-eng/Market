@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { shippingFor } from "@/lib/orders.functions";
+import { shippingFor } from "@/lib/catalog";
 
 describe("shipping fee", () => {
   it("is free from 500.000₫", () => expect(shippingFor(500000)).toBe(0));

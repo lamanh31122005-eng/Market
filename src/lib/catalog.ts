@@ -19,3 +19,9 @@ export function getCategory(slug: string) {
 export function formatVnd(n: number) {
   return n.toLocaleString("vi-VN") + "₫";
 }
+
+export const SHIPPING_FEE = 30000;
+export const FREE_SHIP_FROM = 500000;
+export function shippingFor(subtotal: number) {
+  return subtotal >= FREE_SHIP_FROM ? 0 : SHIPPING_FEE;
+}

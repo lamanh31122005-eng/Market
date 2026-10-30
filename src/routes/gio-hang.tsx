@@ -3,7 +3,7 @@ import { Minus, Plus, Trash2 } from "lucide-react";
 import { useCart } from "@/lib/cart";
 import { useAuth } from "@/lib/auth";
 import { formatVnd } from "@/lib/catalog";
-import { shippingFor, FREE_SHIP_FROM } from "@/lib/orders.functions";
+import { shippingFor, FREE_SHIP_FROM } from "@/lib/catalog";
 
 export const Route = createFileRoute("/gio-hang")({
   head: () => ({

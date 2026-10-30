@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { shippingFor } from "./catalog";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 const Input = z.object({
@@ -11,11 +12,6 @@ const Input = z.object({
   items: z.array(z.object({ productId: z.string().uuid(), quantity: z.number().int().min(1).max(99) })).min(1),
 });
 
-export const SHIPPING_FEE = 30000;
-export const FREE_SHIP_FROM = 500000;
-export function shippingFor(subtotal: number) {
-  return subtotal >= FREE_SHIP_FROM ? 0 : SHIPPING_FEE;
-}
 
 export const placeOrder = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])

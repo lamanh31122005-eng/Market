@@ -4,7 +4,8 @@ import { toast } from "sonner";
 import { Banknote, QrCode, Wallet } from "lucide-react";
 import { useCart } from "@/lib/cart";
 import { formatVnd } from "@/lib/catalog";
-import { placeOrder, shippingFor } from "@/lib/orders.functions";
+import { placeOrder } from "@/lib/orders.functions";
+import { shippingFor } from "@/lib/catalog";
 
 export const Route = createFileRoute("/_authenticated/thanh-toan")({
   head: () => ({
