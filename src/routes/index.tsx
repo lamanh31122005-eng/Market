@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Leaf, Truck, ShieldCheck, ChefHat } from "lucide-react";
-import heroBg from "@/assets/hom-nay-an-gi.png.asset.json";
+import heroBg from "@/assets/hom-nay-an-gi.png";
 import { CATEGORIES } from "@/lib/catalog";
 import { productsQuery } from "@/lib/products.functions";
 import { ProductCard } from "@/components/ProductCard";
@@ -31,7 +31,7 @@ function Index() {
         role="img"
         aria-label="Hôm nay ăn gì?"
         className="relative w-full bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroBg.url})`, aspectRatio: "1920 / 1030", maxHeight: "80vh" }}
+        style={{ backgroundImage: `url(${heroBg})`, aspectRatio: "1920 / 1030", maxHeight: "80vh" }}
       >
         <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background to-transparent" />
       </section>

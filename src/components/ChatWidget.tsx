@@ -6,7 +6,7 @@ import { ChefHat, Send, X, Plus } from "lucide-react";
 import { sendChat } from "@/lib/chat.functions";
 import { productsQuery, type Product } from "@/lib/products.functions";
 import { useCart } from "@/lib/cart";
-import { formatVnd, getCategory } from "@/lib/catalog";
+import { formatVnd, getCategory, getProductCategory, getProductImage } from "@/lib/catalog";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -28,7 +28,11 @@ function useViewingContext(products: Product[] | undefined) {
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([
-    { role: "assistant", content: "Xin chào! Mình là **Bếp Trưởng Sạch**. Hôm nay bạn định nấu món gì? Mình sẽ gợi ý phần thịt và công thức phù hợp nhé." },
+    {
+      role: "assistant",
+      content:
+        "Xin chào! Mình là **Bếp Trưởng Sạch**. Hôm nay bạn định nấu món gì? Mình sẽ gợi ý phần thịt và công thức phù hợp nhé.",
+    },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -56,14 +60,19 @@ export function ChatWidget() {
       const { reply } = await sendChat({ data: { messages: next.slice(1).slice(-20), context } });
       setMessages((m) => [...m, { role: "assistant", content: reply }]);
     } catch {
-      setMessages((m) => [...m, { role: "assistant", content: "Xin lỗi, có lỗi kết nối. Bạn thử lại nhé." }]);
+      setMessages((m) => [
+        ...m,
+        { role: "assistant", content: "Xin lỗi, có lỗi kết nối. Bạn thử lại nhé." },
+      ]);
     } finally {
       setLoading(false);
     }
   }
 
   function renderAssistant(content: string) {
-    const slugs = Array.from(new Set([...content.matchAll(/\[\[([a-z0-9-]+)\]\]/g)].map((m) => m[1])));
+    const slugs = Array.from(
+      new Set([...content.matchAll(/\[\[([a-z0-9-]+)\]\]/g)].map((m) => m[1])),
+    );
     const clean = content.replace(/\s*\[\[[a-z0-9-]+\]\]/g, "");
     const recs = slugs.map((s) => products?.find((p) => p.slug === s)).filter(Boolean) as Product[];
     return (
@@ -75,13 +84,27 @@ export function ChatWidget() {
           <div className="mt-2 space-y-2">
             {recs.map((p) => (
               <div key={p.id} className="flex items-center gap-3 rounded-xl border bg-card p-2">
-                <img src={getCategory(p.category)?.image} alt="" className="h-10 w-10 rounded-lg object-cover" />
+                <img
+                  src={getProductImage(p.slug, p.category)}
+                  alt=""
+                  className="h-10 w-10 rounded-lg object-cover"
+                />
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-medium">{p.name}</p>
-                  <p className="text-xs text-meat">{formatVnd(p.price)}/{p.unit}</p>
+                  <p className="text-xs text-meat">
+                    {formatVnd(p.price)}/{p.unit}
+                  </p>
                 </div>
                 <button
-                  onClick={() => add({ productId: p.id, slug: p.slug, name: p.name, price: p.price, unit: p.unit })}
+                  onClick={() =>
+                    add({
+                      productId: p.id,
+                      slug: p.slug,
+                      name: p.name,
+                      price: p.price,
+                      unit: p.unit,
+                    })
+                  }
                   className="flex items-center gap-1 rounded-full bg-primary px-3 py-1.5 text-xs text-primary-foreground"
                 >
                   <Plus className="h-3 w-3" /> Thêm vào giỏ
@@ -113,33 +136,52 @@ export function ChatWidget() {
             </div>
             <div className="flex-1">
               <p className="font-display font-semibold">Bếp Trưởng Sạch</p>
-              <p className="text-xs opacity-80">{context ? `Đang xem: ${context}` : "Tư vấn thịt & món ăn"}</p>
+              <p className="text-xs opacity-80">
+                {context ? `Đang xem: ${context}` : "Tư vấn thịt & món ăn"}
+              </p>
             </div>
-            <button onClick={() => setOpen(false)} aria-label="Đóng" className="rounded-full p-1 hover:bg-primary-foreground/15">
+            <button
+              onClick={() => setOpen(false)}
+              aria-label="Đóng"
+              className="rounded-full p-1 hover:bg-primary-foreground/15"
+            >
               <X className="h-5 w-5" />
             </button>
           </div>
           <div className="flex-1 space-y-3 overflow-y-auto p-4">
             {messages.map((m, i) =>
               m.role === "user" ? (
-                <div key={i} className="ml-auto max-w-[85%] rounded-2xl rounded-br-sm bg-primary px-3 py-2 text-sm text-primary-foreground">
+                <div
+                  key={i}
+                  className="ml-auto max-w-[85%] rounded-2xl rounded-br-sm bg-primary px-3 py-2 text-sm text-primary-foreground"
+                >
                   {m.content}
                 </div>
               ) : (
-                <div key={i} className="max-w-[95%]">{renderAssistant(m.content)}</div>
+                <div key={i} className="max-w-[95%]">
+                  {renderAssistant(m.content)}
+                </div>
               ),
             )}
             {loading && (
               <div className="flex gap-1 py-2">
                 {[0, 1, 2].map((d) => (
-                  <span key={d} className="h-2 w-2 animate-bounce rounded-full bg-primary/60" style={{ animationDelay: `${d * 150}ms` }} />
+                  <span
+                    key={d}
+                    className="h-2 w-2 animate-bounce rounded-full bg-primary/60"
+                    style={{ animationDelay: `${d * 150}ms` }}
+                  />
                 ))}
               </div>
             )}
             {messages.length === 1 && (
               <div className="flex flex-wrap gap-2 pt-2">
                 {SUGGESTIONS.map((s) => (
-                  <button key={s} onClick={() => send(s)} className="rounded-full border bg-secondary px-3 py-1.5 text-left text-xs text-secondary-foreground hover:border-primary">
+                  <button
+                    key={s}
+                    onClick={() => send(s)}
+                    className="rounded-full border bg-secondary px-3 py-1.5 text-left text-xs text-secondary-foreground hover:border-primary"
+                  >
                     {s}
                   </button>
                 ))}
@@ -168,7 +210,12 @@ export function ChatWidget() {
               placeholder="Hỏi về món ăn, phần thịt, ngân sách…"
               className="max-h-28 flex-1 resize-none rounded-xl border bg-muted px-3 py-2 text-sm outline-none focus:border-primary"
             />
-            <button type="submit" disabled={loading || !input.trim()} aria-label="Gửi" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground disabled:opacity-40">
+            <button
+              type="submit"
+              disabled={loading || !input.trim()}
+              aria-label="Gửi"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground disabled:opacity-40"
+            >
               <Send className="h-4 w-4" />
             </button>
           </form>
