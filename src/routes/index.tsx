@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Leaf, Truck, ShieldCheck, ChefHat } from "lucide-react";
-import hero from "@/assets/hero.jpg";
+import heroBg from "@/assets/hom-nay-an-gi.png.asset.json";
 import { CATEGORIES } from "@/lib/catalog";
 import { productsQuery } from "@/lib/products.functions";
 import { ProductCard } from "@/components/ProductCard";
