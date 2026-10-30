@@ -10,33 +10,121 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as DangNhapRouteImport } from './routes/dang-nhap'
+import { Route as GioHangRouteImport } from './routes/gio-hang'
+import { Route as AuthenticatedDonHangRouteImport } from './routes/_authenticated/don-hang'
+import { Route as AuthenticatedThanhToanRouteImport } from './routes/_authenticated/thanh-toan'
+import { Route as DanhMucCategoryRouteImport } from './routes/danh-muc.$category'
+import { Route as SanPhamSlugRouteImport } from './routes/san-pham.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DangNhapRoute = DangNhapRouteImport.update({
+  id: '/dang-nhap',
+  path: '/dang-nhap',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GioHangRoute = GioHangRouteImport.update({
+  id: '/gio-hang',
+  path: '/gio-hang',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedDonHangRoute = AuthenticatedDonHangRouteImport.update({
+  id: '/don-hang',
+  path: '/don-hang',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedThanhToanRoute = AuthenticatedThanhToanRouteImport.update({
+  id: '/thanh-toan',
+  path: '/thanh-toan',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const DanhMucCategoryRoute = DanhMucCategoryRouteImport.update({
+  id: '/danh-muc/$category',
+  path: '/danh-muc/$category',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SanPhamSlugRoute = SanPhamSlugRouteImport.update({
+  id: '/san-pham/$slug',
+  path: '/san-pham/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dang-nhap': typeof DangNhapRoute
+  '/gio-hang': typeof GioHangRoute
+  '/don-hang': typeof AuthenticatedDonHangRoute
+  '/thanh-toan': typeof AuthenticatedThanhToanRoute
+  '/danh-muc/$category': typeof DanhMucCategoryRoute
+  '/san-pham/$slug': typeof SanPhamSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dang-nhap': typeof DangNhapRoute
+  '/gio-hang': typeof GioHangRoute
+  '/don-hang': typeof AuthenticatedDonHangRoute
+  '/thanh-toan': typeof AuthenticatedThanhToanRoute
+  '/danh-muc/$category': typeof DanhMucCategoryRoute
+  '/san-pham/$slug': typeof SanPhamSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/dang-nhap': typeof DangNhapRoute
+  '/gio-hang': typeof GioHangRoute
+  '/_authenticated/don-hang': typeof AuthenticatedDonHangRoute
+  '/_authenticated/thanh-toan': typeof AuthenticatedThanhToanRoute
+  '/danh-muc/$category': typeof DanhMucCategoryRoute
+  '/san-pham/$slug': typeof SanPhamSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/dang-nhap'
+    | '/gio-hang'
+    | '/don-hang'
+    | '/thanh-toan'
+    | '/danh-muc/$category'
+    | '/san-pham/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/dang-nhap'
+    | '/gio-hang'
+    | '/don-hang'
+    | '/thanh-toan'
+    | '/danh-muc/$category'
+    | '/san-pham/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/dang-nhap'
+    | '/gio-hang'
+    | '/_authenticated/don-hang'
+    | '/_authenticated/thanh-toan'
+    | '/danh-muc/$category'
+    | '/san-pham/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  DangNhapRoute: typeof DangNhapRoute
+  GioHangRoute: typeof GioHangRoute
+  DanhMucCategoryRoute: typeof DanhMucCategoryRoute
+  SanPhamSlugRoute: typeof SanPhamSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +136,78 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dang-nhap': {
+      id: '/dang-nhap'
+      path: '/dang-nhap'
+      fullPath: '/dang-nhap'
+      preLoaderRoute: typeof DangNhapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gio-hang': {
+      id: '/gio-hang'
+      path: '/gio-hang'
+      fullPath: '/gio-hang'
+      preLoaderRoute: typeof GioHangRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/don-hang': {
+      id: '/_authenticated/don-hang'
+      path: '/don-hang'
+      fullPath: '/don-hang'
+      preLoaderRoute: typeof AuthenticatedDonHangRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/thanh-toan': {
+      id: '/_authenticated/thanh-toan'
+      path: '/thanh-toan'
+      fullPath: '/thanh-toan'
+      preLoaderRoute: typeof AuthenticatedThanhToanRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/danh-muc/$category': {
+      id: '/danh-muc/$category'
+      path: '/danh-muc/$category'
+      fullPath: '/danh-muc/$category'
+      preLoaderRoute: typeof DanhMucCategoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/san-pham/$slug': {
+      id: '/san-pham/$slug'
+      path: '/san-pham/$slug'
+      fullPath: '/san-pham/$slug'
+      preLoaderRoute: typeof SanPhamSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedDonHangRoute: typeof AuthenticatedDonHangRoute
+  AuthenticatedThanhToanRoute: typeof AuthenticatedThanhToanRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedDonHangRoute: AuthenticatedDonHangRoute,
+  AuthenticatedThanhToanRoute: AuthenticatedThanhToanRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  DangNhapRoute: DangNhapRoute,
+  GioHangRoute: GioHangRoute,
+  DanhMucCategoryRoute: DanhMucCategoryRoute,
+  SanPhamSlugRoute: SanPhamSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
