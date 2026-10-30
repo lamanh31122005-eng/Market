@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Leaf, Truck, ShieldCheck, ChefHat } from "lucide-react";
-import hero from "@/assets/hero.jpg";
+import heroBg from "@/assets/hom-nay-an-gi.png.asset.json";
 import { CATEGORIES } from "@/lib/catalog";
 import { productsQuery } from "@/lib/products.functions";
 import { ProductCard } from "@/components/ProductCard";
@@ -27,18 +27,26 @@ function Index() {
 
   return (
     <div>
-      <section className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-12 md:grid-cols-2 md:py-20">
-        <div>
+      <section
+        role="img"
+        aria-label="Hôm nay ăn gì?"
+        className="relative w-full bg-cover bg-center"
+        style={{ backgroundImage: `url(${heroBg.url})`, aspectRatio: "1920 / 1030", maxHeight: "80vh" }}
+      >
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background to-transparent" />
+      </section>
+      <section className="relative mx-auto -mt-16 max-w-4xl px-4 pb-12">
+        <div className="rounded-3xl border bg-card/95 p-8 text-center shadow-float backdrop-blur">
           <span className="inline-flex items-center gap-1 rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground">
             <Leaf className="h-3 w-3" /> Tươi mỗi sáng · Rõ nguồn gốc
           </span>
-          <h1 className="mt-5 text-4xl font-semibold leading-tight md:text-6xl">
+          <h1 className="mt-4 text-3xl font-semibold leading-tight md:text-5xl">
             Thịt sạch cho <span className="text-primary">bữa cơm</span> nhà bạn
           </h1>
-          <p className="mt-5 max-w-md text-muted-foreground">
+          <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
             Bò, lợn, gà và đồ chế biến sẵn tuyển chọn — giao lạnh trong 2 giờ. Không biết nấu gì? Hỏi Bếp Trưởng Sạch.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link to="/danh-muc/$category" params={{ category: "bo" }} className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-soft">
               Mua sắm ngay
             </Link>
@@ -47,7 +55,6 @@ function Index() {
             </span>
           </div>
         </div>
-        <img src={hero} alt="Thịt bò, thịt lợn và thịt gà tươi" width={1600} height={1008} className="w-full rounded-3xl shadow-float" />
       </section>
 
       <section className="mx-auto grid max-w-6xl gap-4 px-4 sm:grid-cols-3">
