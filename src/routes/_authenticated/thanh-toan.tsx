@@ -14,6 +14,8 @@ export const Route = createFileRoute("/_authenticated/thanh-toan")({
       { name: "description", content: "Nhập địa chỉ giao hàng và chọn phương thức thanh toán." },
       { property: "og:title", content: "Thanh toán — Thịt Sạch Xanh" },
       { property: "og:description", content: "Hoàn tất đơn hàng thịt sạch." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Checkout,

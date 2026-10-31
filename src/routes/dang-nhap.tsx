@@ -13,6 +13,8 @@ export const Route = createFileRoute("/dang-nhap")({
       { name: "description", content: "Đăng nhập hoặc tạo tài khoản để thanh toán." },
       { property: "og:title", content: "Đăng nhập — Thịt Sạch Xanh" },
       { property: "og:description", content: "Đăng nhập hoặc tạo tài khoản để thanh toán." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: AuthPage,

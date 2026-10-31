@@ -3,6 +3,7 @@ import { useLocation } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import ReactMarkdown from "react-markdown";
 import { ChefHat, Send, X, Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { sendChat } from "@/lib/chat.functions";
 import { productsQuery, type Product } from "@/lib/products.functions";
 import { useCart } from "@/lib/cart";
@@ -13,7 +14,7 @@ type Msg = { role: "user" | "assistant"; content: string };
 const SUGGESTIONS = [
   "Nấu gà kho sả ớt nên chọn phần thịt nào?",
   "Có 200k muốn làm tiệc BBQ bò thì mua gì?",
-  "Gợi ý món nhanh cho bữa tối 4 người",
+  "Phí giao hàng và cách đặt hàng thế nào?",
 ];
 
 function useViewingContext(products: Product[] | undefined) {
@@ -31,7 +32,7 @@ export function ChatWidget() {
     {
       role: "assistant",
       content:
-        "Xin chào! Mình là **Bếp Trưởng Sạch**. Hôm nay bạn định nấu món gì? Mình sẽ gợi ý phần thịt và công thức phù hợp nhé.",
+        "Xin chào! Mình là **Bếp Trưởng Sạch**. Bạn cần hỏi về sản phẩm, món ăn, đơn hàng hay vấn đề nào khác?",
     },
   ]);
   const [input, setInput] = useState("");
@@ -95,7 +96,8 @@ export function ChatWidget() {
                     {formatVnd(p.price)}/{p.unit}
                   </p>
                 </div>
-                <button
+                <Button
+                  size="sm"
                   onClick={() =>
                     add({
                       productId: p.id,
@@ -108,7 +110,7 @@ export function ChatWidget() {
                   className="flex items-center gap-1 rounded-full bg-primary px-3 py-1.5 text-xs text-primary-foreground"
                 >
                   <Plus className="h-3 w-3" /> Thêm vào giỏ
-                </button>
+                </Button>
               </div>
             ))}
           </div>
@@ -120,13 +122,13 @@ export function ChatWidget() {
   return (
     <>
       {!open && (
-        <button
+        <Button
           onClick={() => setOpen(true)}
           aria-label="Mở trợ lý tư vấn"
-          className="fixed bottom-5 right-5 z-40 flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-primary-foreground shadow-float transition hover:scale-105"
+          className="fixed bottom-5 right-5 z-40 flex h-auto items-center gap-2 rounded-full bg-primary px-5 py-3 text-primary-foreground shadow-float transition hover:scale-105"
         >
           <ChefHat className="h-5 w-5" /> Hỏi Bếp Trưởng
-        </button>
+        </Button>
       )}
       {open && (
         <div className="fixed bottom-5 right-5 z-40 flex h-[min(620px,calc(100vh-2.5rem))] w-[min(400px,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-3xl border bg-background shadow-float">
@@ -137,16 +139,18 @@ export function ChatWidget() {
             <div className="flex-1">
               <p className="font-display font-semibold">Bếp Trưởng Sạch</p>
               <p className="text-xs opacity-80">
-                {context ? `Đang xem: ${context}` : "Tư vấn thịt & món ăn"}
+                {context ? `Đang xem: ${context}` : "Tư vấn & hỗ trợ khách hàng"}
               </p>
             </div>
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={() => setOpen(false)}
               aria-label="Đóng"
               className="rounded-full p-1 hover:bg-primary-foreground/15"
             >
               <X className="h-5 w-5" />
-            </button>
+            </Button>
           </div>
           <div className="flex-1 space-y-3 overflow-y-auto p-4">
             {messages.map((m, i) =>
@@ -177,13 +181,14 @@ export function ChatWidget() {
             {messages.length === 1 && (
               <div className="flex flex-wrap gap-2 pt-2">
                 {SUGGESTIONS.map((s) => (
-                  <button
+                  <Button
+                    variant="secondary"
                     key={s}
                     onClick={() => send(s)}
-                    className="rounded-full border bg-secondary px-3 py-1.5 text-left text-xs text-secondary-foreground hover:border-primary"
+                    className="h-auto whitespace-normal rounded-full border bg-secondary px-3 py-1.5 text-left text-xs text-secondary-foreground hover:border-primary"
                   >
                     {s}
-                  </button>
+                  </Button>
                 ))}
               </div>
             )}
@@ -207,17 +212,20 @@ export function ChatWidget() {
                 }
               }}
               rows={1}
-              placeholder="Hỏi về món ăn, phần thịt, ngân sách…"
-              className="max-h-28 flex-1 resize-none rounded-xl border bg-muted px-3 py-2 text-sm outline-none focus:border-primary"
+              placeholder="Nhập câu hỏi của bạn…"
+              aria-label="Câu hỏi của bạn"
+              maxLength={4000}
+              className="max-h-28 min-w-0 flex-1 resize-none rounded-xl border bg-muted px-3 py-2 text-sm outline-none focus:border-primary"
             />
-            <button
+            <Button
+              size="icon"
               type="submit"
               disabled={loading || !input.trim()}
               aria-label="Gửi"
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground disabled:opacity-40"
             >
               <Send className="h-4 w-4" />
-            </button>
+            </Button>
           </form>
         </div>
       )}

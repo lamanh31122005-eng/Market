@@ -13,6 +13,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Thịt sạch truy xuất nguồn gốc, giao trong 2 giờ. Trợ lý AI gợi ý phần thịt và công thức nấu." },
       { property: "og:title", content: "Thịt Sạch Xanh — Thịt sạch giao tận nhà" },
       { property: "og:description", content: "Thịt bò, lợn, gà, đồ chế biến sẵn chất lượng cao. Tư vấn món ăn bằng AI." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(productsQuery),
@@ -75,7 +77,7 @@ function Index() {
 
       <section className="mx-auto max-w-6xl px-4 pt-16">
         <h2 className="text-3xl font-semibold">Danh mục</h2>
-        <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4">
+        <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-6">
           {CATEGORIES.map((c) => (
             <Link key={c.slug} to="/danh-muc/$category" params={{ category: c.slug }} className="group overflow-hidden rounded-2xl border bg-card">
               <img src={c.image} alt={c.name} loading="lazy" width={816} height={816} className="aspect-[4/3] w-full object-cover transition group-hover:scale-105" />
