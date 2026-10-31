@@ -2,6 +2,8 @@ import bo from "@/assets/cat-bo.jpg";
 import lon from "@/assets/cat-lon.jpg";
 import ga from "@/assets/cat-ga.jpg";
 import cheBien from "@/assets/cat-che-bien.jpg";
+import rauCu from "@/assets/cat-rau-cu.jpg";
+import giaVi from "@/assets/cat-gia-vi.jpg";
 import bapBo from "@/assets/bap-bo.png";
 import thanBo from "@/assets/than-bo.png";
 import deSuonBo from "@/assets/de-suon-bo.png";
@@ -34,6 +36,8 @@ export const CATEGORIES = [
     tagline: "Giò lụa, lạp xưởng, chả lá lốt",
     image: cheBien,
   },
+  { slug: "rau-cu", name: "Rau củ", tagline: "Rau xanh và củ quả", image: rauCu },
+  { slug: "gia-vi", name: "Gia vị", tagline: "Gia vị cho bữa cơm Việt", image: giaVi },
 ] as const;
 
 export type CategorySlug = (typeof CATEGORIES)[number]["slug"];
