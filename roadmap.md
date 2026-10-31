@@ -1,0 +1,3 @@
+- [ ] Thêm danh mục Rau củ và Gia vị, ảnh và trạng thái chưa có sản phẩm.
+- [ ] Mở rộng AI trả lời câu hỏi khách hàng, không tự đặt thông tin cửa hàng.
+- [ ] Kiểm thử danh mục, giỏ hàng và tư vấn AI.
