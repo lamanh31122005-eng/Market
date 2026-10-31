@@ -14,6 +14,8 @@ export const Route = createFileRoute("/_authenticated/don-hang")({
       { name: "description", content: "Lịch sử đơn hàng của bạn." },
       { property: "og:title", content: "Đơn hàng — Thịt Sạch Xanh" },
       { property: "og:description", content: "Lịch sử đơn hàng của bạn." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(ordersQuery),

@@ -20,6 +20,8 @@ export const Route = createFileRoute("/san-pham/$slug")({
       { name: "description", content: loaderData?.description ?? "Sản phẩm thịt sạch" },
       { property: "og:title", content: loaderData?.name ?? "Sản phẩm" },
       { property: "og:description", content: loaderData?.description ?? "Sản phẩm thịt sạch" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: ProductPage,

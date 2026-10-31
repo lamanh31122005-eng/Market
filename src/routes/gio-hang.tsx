@@ -12,6 +12,8 @@ export const Route = createFileRoute("/gio-hang")({
       { name: "description", content: "Xem lại giỏ hàng và thanh toán." },
       { property: "og:title", content: "Giỏ hàng — Thịt Sạch Xanh" },
       { property: "og:description", content: "Xem lại giỏ hàng và thanh toán." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: CartPage,

@@ -11,4 +11,6 @@
 
 - Cart lives in browser localStorage (src/lib/cart.tsx) so guests keep it through login; order totals are recomputed server-side in placeOrder.
 - Chatbot replies tag products as [[slug]]; ChatWidget turns tags into add-to-cart cards. Catalog is injected into the prompt server-side.
+- Chatbot public catalog reads use a per-request publishable client; unknown product tags are removed server-side so failed reads cannot create purchase recommendations.
+- Category navigation and imagery are driven by the shared catalog; empty categories remain browsable without fabricated product rows or prices.
 - Checkout/orders sit under _authenticated; login page takes ?redirect= (sanitized via safeRedirect).

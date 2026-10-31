@@ -9,17 +9,17 @@ export function SiteHeader() {
   const { user } = useAuth();
   return (
     <header className="sticky top-0 z-30 border-b bg-background/90 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center gap-6 px-4 py-3">
-        <Link to="/" className="flex items-center gap-2 font-display text-xl font-semibold text-primary">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3">
+        <Link to="/" className="flex shrink-0 items-center gap-2 whitespace-nowrap font-display text-xl font-semibold text-primary">
           <Beef className="h-6 w-6 text-meat" /> Thịt Sạch Xanh
         </Link>
-        <nav className="hidden flex-1 gap-5 text-sm md:flex">
+        <nav aria-label="Danh mục sản phẩm" className="order-last flex w-full gap-5 overflow-x-auto py-1 text-sm xl:order-none xl:w-auto xl:flex-1">
           {CATEGORIES.map((c) => (
             <Link
               key={c.slug}
               to="/danh-muc/$category"
               params={{ category: c.slug }}
-              className="text-muted-foreground hover:text-primary"
+              className="shrink-0 whitespace-nowrap text-muted-foreground hover:text-primary"
               activeProps={{ className: "text-primary font-medium" }}
             >
               {c.name}
