@@ -23,10 +23,6 @@ import chaLaLot from "@/assets/cha-la-lot.png";
 import gioThu from "@/assets/gio-thu.png";
 import thitNguoi from "@/assets/thit-nguoi.png";
 import xucXich from "@/assets/xuc-xich.png";
-import rauCu from "@/assets/cat-rau-cu.jpg";
-import giaVi from "@/assets/cat-gia-vi.jpg";
-import rauMuong from "@/assets/rau-muong.png";
-import nuocMam from "@/assets/nuoc-mam.png";
 
 export const CATEGORIES = [
   { slug: "bo", name: "Thịt bò", tagline: "Bắp, dẻ sườn, thăn, bò nhập khẩu", image: bo },
@@ -38,8 +34,6 @@ export const CATEGORIES = [
     tagline: "Giò lụa, lạp xưởng, chả lá lốt",
     image: cheBien,
   },
-  { slug: "rau-cu", name: "Rau củ", tagline: "Rau muống, cải thìa, cà chua, khoai tây", image: rauCu },
-  { slug: "gia-vi", name: "Gia vị", tagline: "Tỏi, gừng, sả, tiêu, nước mắm", image: giaVi },
 ] as const;
 
 export type CategorySlug = (typeof CATEGORIES)[number]["slug"];
@@ -66,18 +60,6 @@ const PRODUCT_CATEGORIES: Record<string, CategorySlug> = {
   "thit-nguoi": "che-bien",
   "lap-xuong": "che-bien",
   "cha-la-lot": "che-bien",
-  "rau-muong": "rau-cu",
-  "cai-thia": "rau-cu",
-  "ca-chua": "rau-cu",
-  "khoai-tay": "rau-cu",
-  "hanh-tay": "rau-cu",
-  "ot-chuong": "rau-cu",
-  "toi-ly-son": "gia-vi",
-  "gung-tuoi": "gia-vi",
-  "sa": "gia-vi",
-  "tieu-den": "gia-vi",
-  "nuoc-mam-nhi": "gia-vi",
-  "ot-tuoi": "gia-vi",
 };
 
 const PRODUCT_IMAGES: Record<string, string> = {
@@ -102,8 +84,6 @@ const PRODUCT_IMAGES: Record<string, string> = {
   "thit-nguoi": thitNguoi,
   "lap-xuong": lapXuong,
   "cha-la-lot": chaLaLot,
-  "rau-muong": rauMuong,
-  "nuoc-mam-nhi": nuocMam,
 };
 
 export function getCategory(slug: string) {
