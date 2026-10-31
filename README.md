@@ -1,24 +1,38 @@
 # Cart And Conversation
 
-Implement exactly the screenshot and nothing else
+Dự án thương mại điện tử kết hợp giỏ hàng và trợ lý AI tư vấn đặt hàng.
 
-This project was built with [Lovable](https://lovable.dev).
+## Tổng quan
 
-## Build with Lovable
+- Giỏ hàng của khách lưu trong browser localStorage để giữ nguyên khi người dùng đăng nhập.
+- Trợ lý AI đọc catalog sản phẩm từ dữ liệu server-side và gắn sản phẩm theo định dạng tag như [[slug]].
+- Quy trình thanh toán và đơn hàng đặt trong khu vực authenticated.
+- Đăng nhập được xử lý qua Supabase Auth, với redirect an toàn qua ?redirect=.
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/835dc2af-8e47-4ac9-97f2-f36b13c712fc).
+## Mô hình AI sử dụng
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+Dự án đang dùng mô hình AI sau trong chat assistant:
 
-## Development
+- OpenAI: openai/gpt-6-astra
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+Mô hình này được gọi qua AI Gateway trong phần xử lý chatbot, với dữ liệu catalog sản phẩm được chèn vào prompt để hỗ trợ gợi ý và tư vấn mua hàng.
 
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+## Tài khoản login ảo / demo
+
+Email: demo@thitsachxanh.vn
+
+Mật khẩu: BepTruong#Sach2026
+
+## Hướng dẫn phát triển
+
+Yêu cầu:
+- Node.js
+- npm hoặc bun
+
+Cài đặt:
+
+```bash
+git clone <repository-url>
+cd cart-and-conversation
+npm install
 npm run dev
-```
