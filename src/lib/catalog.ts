@@ -25,6 +25,14 @@ import chaLaLot from "@/assets/cha-la-lot.png";
 import gioThu from "@/assets/gio-thu.png";
 import thitNguoi from "@/assets/thit-nguoi.png";
 import xucXich from "@/assets/xuc-xich.png";
+import caRot from "@/assets/ca-rot.jpg";
+import khoaiTay from "@/assets/khoai-tay.jpg";
+import bapCai from "@/assets/bap-cai.jpg";
+import caChua from "@/assets/ca-chua.jpg";
+import muoiBien from "@/assets/muoi-bien.jpg";
+import tieuDen from "@/assets/tieu-den.jpg";
+import toi from "@/assets/toi.jpg";
+import gung from "@/assets/gung.jpg";
 
 export const CATEGORIES = [
   { slug: "bo", name: "Thịt bò", tagline: "Bắp, dẻ sườn, thăn, bò nhập khẩu", image: bo },
@@ -67,6 +75,14 @@ const PRODUCT_CATEGORIES: Record<string, CategorySlug> = {
 };
 
 const PRODUCT_IMAGES: Record<string, string> = {
+  "ca-rot": caRot,
+  "khoai-tay": khoaiTay,
+  "bap-cai": bapCai,
+  "ca-chua": caChua,
+  "muoi-bien": muoiBien,
+  "tieu-den": tieuDen,
+  "toi": toi,
+  "gung": gung,
   "bap-bo": bapBo,
   "de-suon-bo": deSuonBo,
   "than-bo": thanBo,

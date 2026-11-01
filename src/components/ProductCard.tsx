@@ -3,6 +3,7 @@ import { Plus } from "lucide-react";
 import type { Product } from "@/lib/products.functions";
 import { formatVnd, getProductImage } from "@/lib/catalog";
 import { useCart } from "@/lib/cart";
+import { Button } from "@/components/ui/button";
 
 export function ProductCard({ p }: { p: Product }) {
   const { add } = useCart();
@@ -39,7 +40,8 @@ export function ProductCard({ p }: { p: Product }) {
             <p className="font-semibold text-meat">{formatVnd(p.price)}</p>
             <p className="text-xs text-muted-foreground">/{p.unit}</p>
           </div>
-          <button
+          <Button
+            size="icon"
             onClick={() =>
               add({ productId: p.id, slug: p.slug, name: p.name, price: p.price, unit: p.unit })
             }
@@ -47,7 +49,7 @@ export function ProductCard({ p }: { p: Product }) {
             className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground hover:opacity-90"
           >
             <Plus className="h-4 w-4" />
-          </button>
+          </Button>
         </div>
       </div>
     </div>

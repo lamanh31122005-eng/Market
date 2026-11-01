@@ -30,7 +30,8 @@ export const Route = createFileRoute("/san-pham/$slug")({
 function ProductPage() {
   const { slug } = Route.useParams();
   const { data } = useSuspenseQuery(productsQuery);
-  const p = data.find((x) => x.slug === slug)!;
+  const p = data.find((x) => x.slug === slug);
+  if (!p) throw notFound();
   const cat = getProductCategory(p.slug, p.category);
   const image = getProductImage(p.slug, p.category);
   const [qty, setQty] = useState(1);
