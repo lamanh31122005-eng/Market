@@ -14,3 +14,4 @@
 - Chatbot public catalog reads use a per-request publishable client; unknown product tags are removed server-side so failed reads cannot create purchase recommendations.
 - Category navigation and imagery are driven by the shared catalog; empty categories remain browsable without fabricated product rows or prices.
 - Checkout/orders sit under _authenticated; login page takes ?redirect= (sanitized via safeRedirect).
+- Product price management uses authenticated server functions and database-backed admin roles with column-scoped UPDATE grants; only authorized administrators can change prices.
