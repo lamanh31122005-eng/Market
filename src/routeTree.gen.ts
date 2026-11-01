@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as DangNhapRouteImport } from './routes/dang-nhap'
 import { Route as GioHangRouteImport } from './routes/gio-hang'
 import { Route as AuthenticatedDonHangRouteImport } from './routes/_authenticated/don-hang'
+import { Route as AuthenticatedQuanLyGiaRouteImport } from './routes/_authenticated/quan-ly-gia'
 import { Route as AuthenticatedThanhToanRouteImport } from './routes/_authenticated/thanh-toan'
 import { Route as DanhMucCategoryRouteImport } from './routes/danh-muc.$category'
 import { Route as SanPhamSlugRouteImport } from './routes/san-pham.$slug'
@@ -42,6 +43,11 @@ const AuthenticatedDonHangRoute = AuthenticatedDonHangRouteImport.update({
   path: '/don-hang',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedQuanLyGiaRoute = AuthenticatedQuanLyGiaRouteImport.update({
+  id: '/quan-ly-gia',
+  path: '/quan-ly-gia',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedThanhToanRoute = AuthenticatedThanhToanRouteImport.update({
   id: '/thanh-toan',
   path: '/thanh-toan',
@@ -63,6 +69,7 @@ export interface FileRoutesByFullPath {
   '/dang-nhap': typeof DangNhapRoute
   '/gio-hang': typeof GioHangRoute
   '/don-hang': typeof AuthenticatedDonHangRoute
+  '/quan-ly-gia': typeof AuthenticatedQuanLyGiaRoute
   '/thanh-toan': typeof AuthenticatedThanhToanRoute
   '/danh-muc/$category': typeof DanhMucCategoryRoute
   '/san-pham/$slug': typeof SanPhamSlugRoute
@@ -72,6 +79,7 @@ export interface FileRoutesByTo {
   '/dang-nhap': typeof DangNhapRoute
   '/gio-hang': typeof GioHangRoute
   '/don-hang': typeof AuthenticatedDonHangRoute
+  '/quan-ly-gia': typeof AuthenticatedQuanLyGiaRoute
   '/thanh-toan': typeof AuthenticatedThanhToanRoute
   '/danh-muc/$category': typeof DanhMucCategoryRoute
   '/san-pham/$slug': typeof SanPhamSlugRoute
@@ -83,6 +91,7 @@ export interface FileRoutesById {
   '/dang-nhap': typeof DangNhapRoute
   '/gio-hang': typeof GioHangRoute
   '/_authenticated/don-hang': typeof AuthenticatedDonHangRoute
+  '/_authenticated/quan-ly-gia': typeof AuthenticatedQuanLyGiaRoute
   '/_authenticated/thanh-toan': typeof AuthenticatedThanhToanRoute
   '/danh-muc/$category': typeof DanhMucCategoryRoute
   '/san-pham/$slug': typeof SanPhamSlugRoute
@@ -94,6 +103,7 @@ export interface FileRouteTypes {
     | '/dang-nhap'
     | '/gio-hang'
     | '/don-hang'
+    | '/quan-ly-gia'
     | '/thanh-toan'
     | '/danh-muc/$category'
     | '/san-pham/$slug'
@@ -103,6 +113,7 @@ export interface FileRouteTypes {
     | '/dang-nhap'
     | '/gio-hang'
     | '/don-hang'
+    | '/quan-ly-gia'
     | '/thanh-toan'
     | '/danh-muc/$category'
     | '/san-pham/$slug'
@@ -113,6 +124,7 @@ export interface FileRouteTypes {
     | '/dang-nhap'
     | '/gio-hang'
     | '/_authenticated/don-hang'
+    | '/_authenticated/quan-ly-gia'
     | '/_authenticated/thanh-toan'
     | '/danh-muc/$category'
     | '/san-pham/$slug'
@@ -164,6 +176,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDonHangRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/quan-ly-gia': {
+      id: '/_authenticated/quan-ly-gia'
+      path: '/quan-ly-gia'
+      fullPath: '/quan-ly-gia'
+      preLoaderRoute: typeof AuthenticatedQuanLyGiaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/thanh-toan': {
       id: '/_authenticated/thanh-toan'
       path: '/thanh-toan'
@@ -190,11 +209,13 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDonHangRoute: typeof AuthenticatedDonHangRoute
+  AuthenticatedQuanLyGiaRoute: typeof AuthenticatedQuanLyGiaRoute
   AuthenticatedThanhToanRoute: typeof AuthenticatedThanhToanRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDonHangRoute: AuthenticatedDonHangRoute,
+  AuthenticatedQuanLyGiaRoute: AuthenticatedQuanLyGiaRoute,
   AuthenticatedThanhToanRoute: AuthenticatedThanhToanRoute,
 }
 
