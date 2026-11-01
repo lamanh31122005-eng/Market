@@ -67,7 +67,7 @@ function AuthPage() {
     <div className="mx-auto max-w-md px-4 py-16">
       <div className="rounded-3xl border bg-card p-8 shadow-soft">
         <h1 className="text-3xl font-semibold">{mode === "in" ? "Đăng nhập" : "Tạo tài khoản"}</h1>
-        {redirect && <p className="mt-2 text-sm text-muted-foreground">Đăng nhập để tiếp tục thanh toán. Giỏ hàng của bạn vẫn được giữ.</p>}
+        {redirect && <p className="mt-2 text-sm text-muted-foreground">{target === "/quan-ly-gia" ? "Đăng nhập bằng tài khoản quản trị viên." : "Đăng nhập để tiếp tục thanh toán. Giỏ hàng của bạn vẫn được giữ."}</p>}
         <form onSubmit={submit} className="mt-6 space-y-4">
           <input type="email" required placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full rounded-xl border bg-muted px-4 py-3 outline-none focus:border-primary" />
           <input type="password" required minLength={6} placeholder="Mật khẩu (tối thiểu 6 ký tự)" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full rounded-xl border bg-muted px-4 py-3 outline-none focus:border-primary" />

@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { ShoppingBasket, User, Beef } from "lucide-react";
+import { ShoppingBasket, User, Beef, Settings } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart";
 import { useAuth } from "@/lib/auth";
 import { CATEGORIES } from "@/lib/catalog";
@@ -27,6 +28,7 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="ml-auto flex items-center gap-2">
+          <Button asChild variant="ghost" size="icon"><Link to="/quan-ly-gia" aria-label="Quản lý giá" title="Quản lý giá"><Settings className="h-4 w-4" /></Link></Button>
           <Link
             to={user ? "/don-hang" : "/dang-nhap"}
             className="flex items-center gap-1 rounded-full px-3 py-2 text-sm hover:bg-muted"

@@ -3,3 +3,6 @@
 - [x] Kiểm thử danh mục, giỏ hàng và tư vấn AI.
 - [x] Thêm sản phẩm minh họa và ảnh riêng vào Rau củ và Gia vị.
 - [x] Kiểm tra danh mục, chi tiết sản phẩm và thêm vào giỏ.
+- [ ] Thêm trang quản lý giá có phân quyền và kiểm tra giá hợp lệ.
+- [ ] Tạo tài khoản admin thử nghiệm riêng.
+- [ ] Kiểm thử lưu giá và quyền truy cập.
