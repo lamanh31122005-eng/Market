@@ -1,5 +1,5 @@
 - [x] Thêm danh mục Rau củ và Gia vị, ảnh và trạng thái chưa có sản phẩm.
 - [x] Mở rộng AI trả lời câu hỏi khách hàng, không tự đặt thông tin cửa hàng.
 - [x] Kiểm thử danh mục, giỏ hàng và tư vấn AI.
-- [ ] Thêm sản phẩm minh họa và ảnh riêng vào Rau củ và Gia vị.
-- [ ] Kiểm tra danh mục, chi tiết sản phẩm và thêm vào giỏ.
+- [x] Thêm sản phẩm minh họa và ảnh riêng vào Rau củ và Gia vị.
+- [x] Kiểm tra danh mục, chi tiết sản phẩm và thêm vào giỏ.
