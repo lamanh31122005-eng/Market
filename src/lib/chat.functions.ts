@@ -1,6 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { generateResponse, GatewayError } from "@lovable.dev/ai-gateway";
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
 import { CHATBOT_SYSTEM_PROMPT, retainCatalogTags } from "./chat-prompt";
@@ -36,6 +35,8 @@ export const sendChat = createServerFn({ method: "POST" })
 THÔNG TIN CỬA HÀNG DO HỆ THỐNG CUNG CẤP:
 - Danh mục: ${CATEGORIES.map((c) => c.name).join(", ")}.
 - Phí giao: ${SHIPPING_FEE}đ, miễn phí khi tiền hàng từ ${FREE_SHIP_FROM}đ.
+- Khi tính tổng cho khách, làm đúng 3 bước: (1) cộng giá các món = tiền hàng; (2) nếu tiền hàng NHỎ HƠN ${FREE_SHIP_FROM}đ thì cộng thêm phí giao ${SHIPPING_FEE}đ, nếu TỪ ${FREE_SHIP_FROM}đ trở lên thì phí giao 0đ; (3) kiểm tra lại phép cộng trước khi trả lời. Không bao giờ ghi phí giao 0đ khi tiền hàng dưới ${FREE_SHIP_FROM}đ.
+- TUYỆT ĐỐI chỉ nhắc tên và giá của sản phẩm có trong DANH MỤC bên dưới. Không bao giờ ước tính hay tự đặt giá cho món không có trong DANH MỤC (kể cả gia vị, rau củ); nếu món không có trong DANH MỤC thì nói cửa hàng chưa bán món đó.
 - Giỏ hàng được giữ qua đăng nhập; cần đăng nhập trước khi thanh toán và xem Đơn hàng.
 - Các thông tin cửa hàng khác chưa được xác minh. Không cam kết thời gian giao cụ thể.
 - Trạng thái đọc danh mục: ${error ? "LỖI: không xác minh được sản phẩm và giá lúc này; không dùng giá trong lịch sử hội thoại." : "đọc thành công; danh mục không có dòng sản phẩm thì chưa có danh sách bán được cập nhật."}
@@ -43,23 +44,50 @@ THÔNG TIN CỬA HÀNG DO HỆ THỐNG CUNG CẤP:
 DANH MỤC (slug | tên | loại | giá | món phù hợp):\n${catalog}${
       data.context ? `\n\nKhách đang xem: ${data.context}` : ""
     }`;
+    const gatewayBase = (process.env['CONNECTOR_GATEWAY_BASE_URL'] ?? "https://connector-gateway.lovable.dev").replace(/\/$/, "");
+    const lovableKey = process.env['LOVABLE_API_KEY'];
+    const cfKey = process.env['CLOUDFLARE_API_KEY'];
+    if (!lovableKey || !cfKey) {
+      console.error("Missing Cloudflare connector credentials");
+      return { reply: "Xin lỗi, trợ lý đang gặp sự cố. Bạn thử lại sau nhé." };
+    }
     try {
-      const res = await generateResponse({
-        model: "openai/gpt-6-astra",
-        instructions,
-        input: data.messages.map((m) => ({ role: m.role, content: m.content })),
-      });
-      let text = "";
-      for (const item of res.output ?? []) {
-        if (item.type === "message") {
-          for (const c of item.content ?? []) if (c.type === "output_text") text += c.text;
-        }
+      const res = await fetch(
+        `${gatewayBase}/cloudflare/client/v4/accounts/b909697c69c79f4e41437163d5273d0b/ai/run/@cf/meta/llama-3.1-8b-instruct`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${lovableKey}`,
+            "X-Connection-Api-Key": cfKey,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            messages: [
+              { role: "system", content: instructions },
+              ...data.messages.map((m) => ({ role: m.role, content: m.content })),
+            ],
+            max_tokens: 1024,
+          }),
+        },
+      );
+      if (!res.ok) {
+        const body = await res.text();
+        console.error(`Cloudflare AI failed [${res.status}]: ${body}`);
+        return { reply: res.status === 429 ? "Hệ thống đang bận, bạn thử lại sau ít phút nhé." : "Xin lỗi, trợ lý đang gặp sự cố. Bạn thử lại sau nhé." };
       }
+      const json = (await res.json()) as {
+        success?: boolean;
+        errors?: { message?: string }[];
+        result?: { response?: string; choices?: { message?: { content?: string } }[] };
+      };
+      if (!json.success) {
+        console.error(`Cloudflare AI error: ${json.errors?.[0]?.message}`);
+        return { reply: "Xin lỗi, trợ lý đang gặp sự cố. Bạn thử lại sau nhé." };
+      }
+      const text = json.result?.response ?? json.result?.choices?.[0]?.message?.content ?? "";
       return { reply: retainCatalogTags(text, (products ?? []).map((p) => p.slug)) || "Xin lỗi, mình chưa trả lời được. Bạn hỏi lại nhé!" };
     } catch (e) {
       console.error(e);
-      if (e instanceof GatewayError && e.code === "rate_limited")
-        return { reply: "Hệ thống đang bận, bạn thử lại sau ít phút nhé." };
       return { reply: "Xin lỗi, trợ lý đang gặp sự cố. Bạn thử lại sau nhé." };
     }
   });
