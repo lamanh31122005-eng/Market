@@ -6,3 +6,4 @@
 - [ ] Thêm trang quản lý giá có phân quyền và kiểm tra giá hợp lệ.
 - [x] Tạo tài khoản admin thử nghiệm riêng.
 - [ ] Kiểm thử lưu giá và quyền truy cập.
+- [x] Chuyển trợ lý Bếp Trưởng sang AI miễn phí của Cloudflare và kiểm thử trả lời.
