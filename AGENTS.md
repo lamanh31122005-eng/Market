@@ -1,14 +1,3 @@
-<!-- LOVABLE:BEGIN -->
-> [!IMPORTANT]
-> This project is connected to [Lovable](https://lovable.dev). Avoid rewriting
-> published git history — force pushing, or rebasing/amending/squashing commits
-> that are already pushed — as it rewrites history on Lovable's side and the
-> user will likely lose their project history.
->
-> Commits you push to the connected branch sync back to Lovable and show up in
-> the editor, so keep the branch in a working state.
-<!-- LOVABLE:END -->
-
 # AGENTS.md — CloudShop AI và hướng dẫn triển khai Cloudflare
 
 Tài liệu này ghi lại các quy tắc quan trọng khi phát triển ứng dụng và hướng dẫn triển khai CloudShop AI lên Cloudflare. Hãy cập nhật tài liệu này khi thay đổi adapter, cấu hình runtime, tên biến môi trường hoặc quy trình deploy.
@@ -118,3 +107,14 @@ npm test
 ```
 
 Không tuyên bố deploy thành công chỉ vì build thành công: cần kiểm tra Worker deployment và các luồng server-side trên URL Cloudflare thực tế.
+
+## Tài khoản login ảo / demo
+
+Email: demo@thitsachxanh.vn
+Mật khẩu: BepTruong#Sach2026
+
+## Tài khoản quản trị viên
+
+Email: admin@thitsachxanh.vn
+Mật khẩu: QuanTri#XanhSach2026 
+
