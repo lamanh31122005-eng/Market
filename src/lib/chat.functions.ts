@@ -44,21 +44,18 @@ THÔNG TIN CỬA HÀNG DO HỆ THỐNG CUNG CẤP:
 DANH MỤC (slug | tên | loại | giá | món phù hợp):\n${catalog}${
       data.context ? `\n\nKhách đang xem: ${data.context}` : ""
     }`;
-    const gatewayBase = (process.env['CONNECTOR_GATEWAY_BASE_URL'] ?? "https://connector-gateway.lovable.dev").replace(/\/$/, "");
-    const lovableKey = process.env['LOVABLE_API_KEY'];
     const cfKey = process.env['CLOUDFLARE_API_KEY'];
-    if (!lovableKey || !cfKey) {
-      console.error("Missing Cloudflare connector credentials");
+    if (!cfKey) {
+      console.error("Missing Cloudflare API token");
       return { reply: "Xin lỗi, trợ lý đang gặp sự cố. Bạn thử lại sau nhé." };
     }
     try {
       const res = await fetch(
-        `${gatewayBase}/cloudflare/client/v4/accounts/b909697c69c79f4e41437163d5273d0b/ai/run/@cf/meta/llama-3.1-8b-instruct`,
+        "https://api.cloudflare.com/client/v4/accounts/b909697c69c79f4e41437163d5273d0b/ai/run/@cf/meta/llama-3.1-8b-instruct",
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${lovableKey}`,
-            "X-Connection-Api-Key": cfKey,
+            Authorization: `Bearer ${cfKey}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
