@@ -35,6 +35,7 @@ export const sendChat = createServerFn({ method: "POST" })
 THÔNG TIN CỬA HÀNG DO HỆ THỐNG CUNG CẤP:
 - Danh mục: ${CATEGORIES.map((c) => c.name).join(", ")}.
 - Phí giao: ${SHIPPING_FEE}đ, miễn phí khi tiền hàng từ ${FREE_SHIP_FROM}đ.
+- Khi tính tổng cho khách, làm đúng 3 bước: (1) cộng giá các món = tiền hàng; (2) nếu tiền hàng NHỎ HƠN ${FREE_SHIP_FROM}đ thì cộng thêm phí giao ${SHIPPING_FEE}đ, nếu TỪ ${FREE_SHIP_FROM}đ trở lên thì phí giao 0đ; (3) kiểm tra lại phép cộng trước khi trả lời. Không bao giờ ghi phí giao 0đ khi tiền hàng dưới ${FREE_SHIP_FROM}đ.
 - Giỏ hàng được giữ qua đăng nhập; cần đăng nhập trước khi thanh toán và xem Đơn hàng.
 - Các thông tin cửa hàng khác chưa được xác minh. Không cam kết thời gian giao cụ thể.
 - Trạng thái đọc danh mục: ${error ? "LỖI: không xác minh được sản phẩm và giá lúc này; không dùng giá trong lịch sử hội thoại." : "đọc thành công; danh mục không có dòng sản phẩm thì chưa có danh sách bán được cập nhật."}
