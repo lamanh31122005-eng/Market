@@ -1,4 +1,4 @@
-# Cart And Conversation
+# nguyên lý hoạt động của hệ thống AI Cloudfare
 
 Ứng dụng thương mại điện tử bán thực phẩm, tích hợp giỏ hàng và trợ lý AI tư vấn sản phẩm, món ăn và đặt hàng.
 
